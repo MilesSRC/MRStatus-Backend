@@ -1,6 +1,7 @@
 import Router from '@Classes/Router';
 
 import express from 'express';
+import expressrl from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -19,6 +20,13 @@ export default class Server {
         /* Middleware */
         this.app.use(helmet(), morgan('dev'), cors());
         this.app.use(express.json());
+        this.app.use(expressrl({
+            windowMs: 30 * 60000,
+            max: 30 * 15,
+            standardHeaders: true,
+            legacyHeaders: false,
+            message: { message: "👋 Too fast, try again later alligator!" }
+        }))
 
         /* Routes */
         this.router = new Router({
