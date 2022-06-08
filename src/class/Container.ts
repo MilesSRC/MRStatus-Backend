@@ -43,4 +43,13 @@ export default class Container {
 
         return false;
     }
+
+    public getService(service: string): Service | undefined {
+        for(let machine of this.machines.values()) {
+            if(machine.hasService(service))
+                return machine.getService(service);
+        }
+
+        return undefined;
+    }
 }

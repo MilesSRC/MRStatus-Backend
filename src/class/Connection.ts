@@ -35,10 +35,12 @@ interface ServiceData {
 interface MachineUpdateData {} // Will be empty
 
 interface ServiceUpdateData {
-    process: {
-        pid: string,
-        ram: number,
-        cpu: number,
+    data: {
+        process: {
+            pid: string,
+            ram: number,
+            cpu: number,
+        }
     }
 }
 
@@ -113,7 +115,7 @@ export default class Connection {
             return;
         
         updateData = data as ServiceUpdateData;
-        this.system.setProcess(updateData.process);
+        this.system.setProcess(updateData.data.process);           
         this.system.setOnline(true);
         this.logger.log("debug", "Updated");
     }
